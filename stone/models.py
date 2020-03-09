@@ -49,6 +49,7 @@ class stone(models.Model):
     ancient_name = models.CharField(max_length=150,  blank=True, null=True)
     day_of_week = models.IntegerField( blank=True, null=True)
     number = models.IntegerField( blank=True, null=True)
+    notusewith = ArrayField(models.IntegerField(), default=list)
 
     def __unicode__(self):
         return self.id
