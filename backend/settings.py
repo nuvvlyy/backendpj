@@ -15,6 +15,7 @@ import os
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import dj_database_url
 from dj_config_url import config
+from django.conf.global_settings import DATABASES
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -22,11 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = '0!owaim#0yg$iza#)1whdr^p6i4)j!rye50urqiv-$z5i0b95d'
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = '0!owaim#0yg$iza#)1whdr^p6i4)j!rye50urqiv-$z5i0b95d'
+# SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = True
+# DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ['*']
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -93,27 +94,29 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'stone',
-    #     'USER': 'myprojectuser',
-    #     'PASSWORD': 'password1234',
-    #     'HOST': 'localhost',
-    #     'PORT': '',
-    # }
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
-
-    # 'OPTIONS': {
-    #     'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
-    # },
-}
+prod_db  =  dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
+# DATABASES = {
+#     # 'default': {
+#     #     'ENGINE': 'django.db.backends.sqlite3',
+#     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#     # }
+#     # 'default': {
+#     #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#     #     'NAME': 'stone',
+#     #     'USER': 'myprojectuser',
+#     #     'PASSWORD': 'password1234',
+#     #     'HOST': 'localhost',
+#     #     'PORT': '',
+#     # }
+#     'default': dj_database_url.config(
+#         default=config('DATABASE_URL')
+#     )
+#
+#     # 'OPTIONS': {
+#     #     'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
+#     # },
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
