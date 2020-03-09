@@ -15,6 +15,7 @@ import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import dj_database_url
+# from decouple import config
 from dj_config_url import config
 from django.conf.global_settings import DATABASES
 
@@ -102,17 +103,16 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'stone',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password1234',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
-    # 'default': dj_database_url.config(
-    #     default=config('DATABASE_URL')
-    # )
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'stone',
+    #     'USER': 'myprojectuser',
+    #     'PASSWORD': 'password1234',
+    #     'HOST': 'localhost',
+    #     'PORT': '',
+    # }
+
+    'default': dj_database_url.config()
 
     # 'OPTIONS': {
     #     'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
