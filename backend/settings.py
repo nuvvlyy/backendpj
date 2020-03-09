@@ -13,6 +13,9 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+import dj_database_url
+from dj_config_url import config
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Quick-start development settings - unsuitable for production
@@ -25,8 +28,13 @@ SECRET_KEY = '0!owaim#0yg$iza#)1whdr^p6i4)j!rye50urqiv-$z5i0b95d'
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
+STATIC_URL = '/static/'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# SECRET_KEY = config('SECRET_KEY')
+# DEBUG = config('DEBUG', default=False, cast=bool)
 
 # Application definition
 
@@ -89,14 +97,17 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'stone',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password1234',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'stone',
+    #     'USER': 'myprojectuser',
+    #     'PASSWORD': 'password1234',
+    #     'HOST': 'localhost',
+    #     'PORT': '',
+    # }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
 
     # 'OPTIONS': {
     #     'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
