@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from rest_framework.utils import json
+
 from stone.models import *
 
 
@@ -66,14 +68,14 @@ class AttributeSerializer(serializers.ModelSerializer):
 
 
 class StoneSerializer(serializers.ModelSerializer):
-    # attribute = AttributeSerializer(many=True)
-
-    # stone_img = Base64ImageField(
-    #     max_length=None, use_url=True,
-    # )
-    # stone_img_sm = Base64ImageField(
-    #     max_length=None, use_url=True,
-    # )
+    # attribute = serializers.ListField(child=serializers.IntegerField(), allow_empty=True, required=False)
+    # notusewith = serializers.ListField(child=serializers.IntegerField(), allow_empty=True, required=False)
+    stone_img = Base64ImageField(
+        max_length=None, use_url=True, required=False
+    )
+    stone_img_sm = Base64ImageField(
+        max_length=None, use_url=True, required=False
+    )
 
     class Meta:
         model = stone
@@ -82,8 +84,21 @@ class StoneSerializer(serializers.ModelSerializer):
         fields = '__all__'
         ordering = ('stone_name_en', 'id')
 
-    def create(self, validated_data):
+    # def to_internal_values(self, data):
+    #     if isinstance(data['attribute'], str):
+    #         data['attribute'] = json.loads(data['attribute'])
+    #     if isinstance(data['notusewith'], str):
+    #         data['notusewith'] = json.loads(data['notusewith'])
+    #     print(data)
+    #     return data
+    # civilians = serializers.IntegerField(default=0, required=False)
+
+    # def create(self, validated_data):
+    #     print(validated_data)
+    #     return validated_data
+    def create_or_update(self, validated_data):
         attributes = validated_data.pop('attribute')
+        print(attributes)
         stone_data = stone.objects.create(**validated_data)
         if len(attributes) > 0:
             for a in attributes:
@@ -173,3 +188,19 @@ class StartypeSerializer(serializers.ModelSerializer):
                   'day_of_mouth',
                   'month_of_year',
                   'number')
+
+
+class ZodiacSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Zodiac
+        fields = '__all__'
+
+
+class BraceletPatternSerializer(serializers.ModelSerializer):
+    NumOfStones = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    wristSize = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+    stoneSize = serializers.CharField(required=False, allow_null=True, allow_blank=True)
+
+    class Meta:
+        model = BraceletPattern
+        fields = '__all__'

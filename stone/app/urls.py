@@ -4,11 +4,15 @@ from stone.app import views
 
 router = DefaultRouter()
 router.register(r'stone', views.StoneViewset,base_name='stone')
+router.register(r'stone', views.StoneViewset,base_name='stone')
 router.register(r'star', views.StartypeViewSet,base_name='typestar')
 router.register(r'attribute',views.AttributeModelViewSet)
 router.register(r'favorite',views.FaveriteModelViewSet)
 router.register(r'fb-favorite',views.FaveriteFBModelViewSet)
 router.register(r'img',views.stoneIMGModelViewSet)
+router.register(r'Zodiac',views.ZodiacModelViewSet)
+router.register(r'BraceletPattern',views.BraceletPatternModelViewSet)
+
 # router.register(r'img-sm',views.stoneIMGSMModelViewSet)
 
 # router.register(r'attribute', views.attributeofstoneViewset)

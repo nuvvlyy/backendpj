@@ -73,7 +73,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
@@ -107,16 +106,16 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'stone',
-    #     'USER': 'myprojectuser',
-    #     'PASSWORD': 'password1234',
-    #     'HOST': 'localhost',
-    #     'PORT': '',
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'stone',
+        'USER': 'myprojectuser',
+        'PASSWORD': 'password1234',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
 
-    'default': dj_database_url.config()
+    # 'default': dj_database_url.config()
 
     # 'OPTIONS': {
     #     'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
@@ -181,7 +180,11 @@ REST_FRAMEWORK = {
 }
 
 CORS_ORIGIN_ALLOW_ALL = True
-
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = [
+    "https://luckystonepj.herokuapp.com",
+    "http://localhost:4200"
+]
 CORS_ALLOW_METHODS = [
     'DELETE',
     'GET',
@@ -190,6 +193,7 @@ CORS_ALLOW_METHODS = [
     'POST',
     'PUT',
 ]
+
 
 CORS_ALLOW_HEADERS = [
     'accept',
