@@ -106,16 +106,16 @@ DATABASES = {
     #     'ENGINE': 'django.db.backends.sqlite3',
     #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     # }
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'stone',
-        'USER': 'myprojectuser',
-        'PASSWORD': 'password1234',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
+    #     'NAME': 'stone',
+    #     'USER': 'myprojectuser',
+    #     'PASSWORD': 'password1234',
+    #     'HOST': 'localhost',
+    #     'PORT': '',
+    # }
 
-    # 'default': dj_database_url.config()
+    'default': dj_database_url.config()
 
     # 'OPTIONS': {
     #     'isolation_level': psycopg2.extensions.ISOLATION_LEVEL_SERIALIZABLE,
